@@ -38,7 +38,7 @@ import java.util.zip.ZipEntry;
  * @author Shawn Bayern
  * @author Mark Roth
  */
-public class JspUtil {
+public final class JspUtil {
 
     private static final String WEB_INF_TAGS = "/WEB-INF/tags/";
     private static final String META_INF_TAGS = "/META-INF/tags/";

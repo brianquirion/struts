@@ -130,36 +130,30 @@ public class JasperReportsResult extends StrutsResultSupport implements JasperRe
 
     private final static Logger LOG = LogManager.getLogger(JasperReportsResult.class);
 
-    protected String dataSource;
-    protected String format;
-    protected String documentName;
-    protected String contentDisposition;
-    protected String delimiter;
-    protected String imageServletUrl = "/images/";
-    protected String timeZone;
-    protected boolean wrapField = true;
+    private String dataSource;
+    private String format;
+    private String delimiter;
+    private String documentName;
+    private String contentDisposition;
+    private String timeZone;
 
     /**
      * Connection which can be passed to the report
      * instead od dataSource.
      */
     protected String connection;
-
     /**
      * Names a report parameters map stack value, allowing
      * additional report parameters from the action.
      */
-    protected String reportParameters;
+    private String reportParameters;
 
     /**
      * Names an exporter parameters map stack value,
      * allowing the use of custom export parameters.
      */
-    protected String exportParameters;
+    private String exportParameters;
 
-    /**
-     * Default ctor.
-     */
     public JasperReportsResult() {
         super();
     }
@@ -169,69 +163,12 @@ public class JasperReportsResult extends StrutsResultSupport implements JasperRe
      *
      * @param location Result location.
      */
-    public JasperReportsResult(String location) {
+    private JasperReportsResult(String location) {
         super(location);
-    }
-
-    public String getImageServletUrl() {
-        return imageServletUrl;
-    }
-
-    public void setImageServletUrl(final String imageServletUrl) {
-        this.imageServletUrl = imageServletUrl;
-    }
-
-    public void setDataSource(String dataSource) {
-        this.dataSource = dataSource;
     }
 
     public void setFormat(String format) {
         this.format = format;
-    }
-
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
-    }
-
-    public void setContentDisposition(String contentDisposition) {
-        this.contentDisposition = contentDisposition;
-    }
-
-    public void setDelimiter(String delimiter) {
-        this.delimiter = delimiter;
-    }
-
-    /**
-     * set time zone id
-     *
-     * @param timeZone
-     */
-    public void setTimeZone(final String timeZone) {
-        this.timeZone = timeZone;
-    }
-
-    public void setWrapField(boolean wrapField) {
-        this.wrapField = wrapField;
-    }
-
-    public String getReportParameters() {
-        return reportParameters;
-    }
-
-    public void setReportParameters(String reportParameters) {
-        this.reportParameters = reportParameters;
-    }
-
-    public String getExportParameters() {
-        return exportParameters;
-    }
-
-    public void setExportParameters(String exportParameters) {
-        this.exportParameters = exportParameters;
-    }
-
-    public String getConnection() {
-        return connection;
     }
 
     public void setConnection(String connection) {
@@ -239,6 +176,9 @@ public class JasperReportsResult extends StrutsResultSupport implements JasperRe
     }
 
     protected void doExecute(String finalLocation, ActionInvocation invocation) throws Exception {
+        String imageServletUrl = "/images/";
+        boolean wrapField = true;
+
         // Will throw a runtime exception if no "datasource" property. TODO Best place for that is...?
         initializeProperties(invocation);
 
@@ -263,7 +203,7 @@ public class JasperReportsResult extends StrutsResultSupport implements JasperRe
         // Construct the data source for the report.
         ValueStack stack = invocation.getStack();
         ValueStackDataSource stackDataSource = null;
-
+        
         Connection conn = (Connection) stack.findValue(connection);
         if (conn == null)
             stackDataSource = new ValueStackDataSource(stack, dataSource, wrapField);

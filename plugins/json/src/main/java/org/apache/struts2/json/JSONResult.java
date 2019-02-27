@@ -72,11 +72,6 @@ public class JSONResult implements Result {
 
     private static final Logger LOG = LogManager.getLogger(JSONResult.class);
 
-    /**
-     * This result type doesn't have a default param, null is ok to reduce noise in logs
-     */
-    public static final String DEFAULT_PARAM = null;
-
     private String encoding;
     private String defaultEncoding = "UTF-8";
     private List<Pattern> includeProperties;
@@ -103,87 +98,23 @@ public class JSONResult implements Result {
     private JSONUtil jsonUtil;
     
     @Inject(StrutsConstants.STRUTS_I18N_ENCODING)
-    public void setDefaultEncoding(String val) {
+    void setDefaultEncoding(String val) {
         this.defaultEncoding = val;
-    }
-    
-    @Inject(StrutsConstants.STRUTS_DEVMODE) 
-    public void setDevMode(String val) {
-    	this.devMode = BooleanUtils.toBoolean(val);
     }
 
     @Inject
-    public void setJsonUtil(JSONUtil jsonUtil) {
+    void setJsonUtil(JSONUtil jsonUtil) {
         this.jsonUtil = jsonUtil;
     }
 
     /**
-     * Gets a list of regular expressions of properties to exclude from the JSON
-     * output.
-     *
-     * @return A list of compiled regular expression patterns
-     */
-    public List<Pattern> getExcludePropertiesList() {
-        return this.excludeProperties;
-    }
-
-    /**
-     * Sets a comma-delimited list of regular expressions to match properties
-     * that should be excluded from the JSON output.
-     *
-     * @param commaDelim A comma-delimited list of regular expressions
-     */
-    public void setExcludeProperties(String commaDelim) {
-        Set<String> excludePatterns = JSONUtil.asSet(commaDelim);
-        if (excludePatterns != null) {
-            this.excludeProperties = new ArrayList<>(excludePatterns.size());
-            for (String pattern : excludePatterns) {
-                this.excludeProperties.add(Pattern.compile(pattern));
-            }
-        }
-    }
-
-    /**
-     * Sets a comma-delimited list of wildcard expressions to match properties
-     * that should be excluded from the JSON output.
-     *
-     * @param commaDelim A comma-delimited list of wildcard patterns
-     */
-    public void setExcludeWildcards(String commaDelim) {
-        Set<String> excludePatterns = JSONUtil.asSet(commaDelim);
-        if (excludePatterns != null) {
-            this.excludeProperties = new ArrayList<>(excludePatterns.size());
-            for (String pattern : excludePatterns) {
-                this.excludeProperties.add(WildcardUtil.compileWildcardPattern(pattern));
-            }
-        }
-    }
-
-    /**
-     * @return the includeProperties
-     */
-    public List<Pattern> getIncludePropertiesList() {
-        return includeProperties;
-    }
-
-    /**
      * Sets a comma-delimited list of regular expressions to match properties
      * that should be included in the JSON output.
      *
      * @param commaDelim A comma-delimited list of regular expressions
      */
-    public void setIncludeProperties(String commaDelim) {
+    void setIncludeProperties(String commaDelim) {
         includeProperties = JSONUtil.processIncludePatterns(JSONUtil.asSet(commaDelim), JSONUtil.REGEXP_PATTERN);
-    }
-
-    /**
-     * Sets a comma-delimited list of wildcard expressions to match properties
-     * that should be included in the JSON output.
-     *
-     * @param commaDelim A comma-delimited list of wildcard patterns
-     */
-    public void setIncludeWildcards(String commaDelim) {
-        includeProperties = JSONUtil.processIncludePatterns(JSONUtil.asSet(commaDelim), JSONUtil.WILDCARD_PATTERN);
     }
 
     public void execute(ActionInvocation invocation) throws Exception {
@@ -204,14 +135,14 @@ public class JSONResult implements Result {
         }
     }
 
-    protected Object readRootObject(ActionInvocation invocation) {
+    private Object readRootObject(ActionInvocation invocation) {
         if (enableSMD) {
             return buildSMDObject(invocation);
         }
         return findRootObject(invocation);
     }
 
-    protected Object findRootObject(ActionInvocation invocation) {
+    private Object findRootObject(ActionInvocation invocation) {
         Object rootObject;
         if (this.root != null) {
             ValueStack stack = invocation.getStack();
@@ -222,25 +153,25 @@ public class JSONResult implements Result {
         return rootObject;
     }
 
-    protected String createJSONString(HttpServletRequest request, Object rootObject) throws JSONException {
+    private String createJSONString(HttpServletRequest request, Object rootObject) throws JSONException {
         String json = jsonUtil.serialize(rootObject, excludeProperties, includeProperties, ignoreHierarchy,
                                          enumAsBean, excludeNullProperties, defaultDateFormat, cacheBeanInfo);
         json = addCallbackIfApplicable(request, json);
         return json;
     }
 
-    protected boolean enableGzip(HttpServletRequest request) {
+    private boolean enableGzip(HttpServletRequest request) {
         return enableGZIP && JSONUtil.isGzipInRequest(request);
     }
 
-    protected void writeToResponse(HttpServletResponse response, String json, boolean gzip) throws IOException {
+    private void writeToResponse(HttpServletResponse response, String json, boolean gzip) throws IOException {
         JSONUtil.writeJSONToResponse(new SerializationParams(response, getEncoding(), isWrapWithComments(),
                 json, false, gzip, noCache, statusCode, errorCode, prefix, contentType, wrapPrefix,
                 wrapSuffix));
     }
 
     @SuppressWarnings("unchecked")
-    protected org.apache.struts2.json.smd.SMD buildSMDObject(ActionInvocation invocation) {
+    private org.apache.struts2.json.smd.SMD buildSMDObject(ActionInvocation invocation) {
         return new SMDGenerator(findRootObject(invocation), excludeProperties, ignoreInterfaces).generate(invocation);
     }
 
@@ -268,7 +199,7 @@ public class JSONResult implements Result {
         return encoding;
     }
 
-    protected String addCallbackIfApplicable(HttpServletRequest request, String json) {
+    private String addCallbackIfApplicable(HttpServletRequest request, String json) {
         if ((callbackParameter != null) && (callbackParameter.length() > 0)) {
             String callbackName = request.getParameter(callbackParameter);
             if (StringUtils.isNotEmpty(callbackName)) {
@@ -297,14 +228,14 @@ public class JSONResult implements Result {
     /**
      * @return Generated JSON must be enclosed in comments
      */
-    public boolean isWrapWithComments() {
+    private boolean isWrapWithComments() {
         return this.wrapWithComments;
     }
 
     /**
      * @param wrapWithComments Wrap generated JSON with comments
      */
-    public void setWrapWithComments(boolean wrapWithComments) {
+    void setWrapWithComments(boolean wrapWithComments) {
         this.wrapWithComments = wrapWithComments;
     }
 
@@ -318,11 +249,11 @@ public class JSONResult implements Result {
     /**
      * @param enableSMD Enable SMD generation for action, which can be used for JSON-RPC
      */
-    public void setEnableSMD(boolean enableSMD) {
+    void setEnableSMD(boolean enableSMD) {
         this.enableSMD = enableSMD;
     }
 
-    public void setIgnoreHierarchy(boolean ignoreHierarchy) {
+    void setIgnoreHierarchy(boolean ignoreHierarchy) {
         this.ignoreHierarchy = ignoreHierarchy;
     }
 
@@ -340,68 +271,33 @@ public class JSONResult implements Result {
      * name=value pair (name=name()) (default) If false, an Enum is serialized
      * as a bean with a special property _name=name()
      */
-    public void setEnumAsBean(boolean enumAsBean) {
+    void setEnumAsBean(boolean enumAsBean) {
         this.enumAsBean = enumAsBean;
-    }
-
-    public boolean isEnumAsBean() {
-        return enumAsBean;
-    }
-
-    public boolean isEnableGZIP() {
-        return enableGZIP;
-    }
-
-    public void setEnableGZIP(boolean enableGZIP) {
-        this.enableGZIP = enableGZIP;
-    }
-
-    public boolean isNoCache() {
-        return noCache;
     }
 
     /**
      * @param noCache Add headers to response to prevent the browser from caching the response
      */
-    public void setNoCache(boolean noCache) {
+    void setNoCache(boolean noCache) {
         this.noCache = noCache;
-    }
-
-    public boolean isIgnoreHierarchy() {
-        return ignoreHierarchy;
-    }
-
-    public boolean isExcludeNullProperties() {
-        return excludeNullProperties;
     }
 
     /**
      * @param excludeNullProperties Do not serialize properties with a null value
      */
-    public void setExcludeNullProperties(boolean excludeNullProperties) {
+    void setExcludeNullProperties(boolean excludeNullProperties) {
         this.excludeNullProperties = excludeNullProperties;
     }
 
     /**
      * @param statusCode Status code to be set in the response
      */
-    public void setStatusCode(int statusCode) {
+    void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
-    /**
-     * @param errorCode Error code to be set in the response
-     */
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public void setCallbackParameter(String callbackParameter) {
+    void setCallbackParameter(String callbackParameter) {
         this.callbackParameter = callbackParameter;
-    }
-
-    public String getCallbackParameter() {
-        return callbackParameter;
     }
 
     /**
@@ -418,25 +314,17 @@ public class JSONResult implements Result {
         this.contentType = contentType;
     }
 
-    public String getWrapPrefix() {
-        return wrapPrefix;
-    }
-
     /**
      * @param wrapPrefix  Text to be inserted at the begining of the response
      */
-    public void setWrapPrefix(String wrapPrefix) {
+    void setWrapPrefix(String wrapPrefix) {
         this.wrapPrefix = wrapPrefix;
-    }
-
-    public String getWrapSuffix() {
-        return wrapSuffix;
     }
 
     /**
      * @param wrapSuffix  Text to be inserted at the end of the response
      */
-    public void setWrapSuffix(String wrapSuffix) {
+    void setWrapSuffix(String wrapSuffix) {
         this.wrapSuffix = wrapSuffix;
     }
 
@@ -452,12 +340,8 @@ public class JSONResult implements Result {
         this.encoding = encoding;
     }
 
-    public String getDefaultDateFormat() {
-        return defaultDateFormat;
-    }
-
     @Inject(required=false,value="struts.json.dateformat")
-    public void setDefaultDateFormat(String defaultDateFormat) {
+    void setDefaultDateFormat(String defaultDateFormat) {
         this.defaultDateFormat = defaultDateFormat;
     }
 }

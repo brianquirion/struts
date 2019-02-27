@@ -3078,37 +3078,37 @@ class Generator {
             } else if (c == String.class) {
                 return quoted;
             } else if (c == boolean.class) {
-                return JspUtil.coerceToPrimitiveBoolean(s, isNamedAttribute);
+                return Coercion.coerceToPrimitiveBoolean(s, isNamedAttribute);
             } else if (c == Boolean.class) {
-                return JspUtil.coerceToBoolean(s, isNamedAttribute);
+                return Coercion.coerceToBoolean(s, isNamedAttribute);
             } else if (c == byte.class) {
-                return JspUtil.coerceToPrimitiveByte(s, isNamedAttribute);
+                return Coercion.coerceToPrimitiveByte(s, isNamedAttribute);
             } else if (c == Byte.class) {
-                return JspUtil.coerceToByte(s, isNamedAttribute);
+                return Coercion.coerceToByte(s, isNamedAttribute);
             } else if (c == char.class) {
-                return JspUtil.coerceToChar(s, isNamedAttribute);
+                return Coercion.coerceToChar(s, isNamedAttribute);
             } else if (c == Character.class) {
-                return JspUtil.coerceToCharacter(s, isNamedAttribute);
+                return Coercion.coerceToCharacter(s, isNamedAttribute);
             } else if (c == double.class) {
-                return JspUtil.coerceToPrimitiveDouble(s, isNamedAttribute);
+                return Coercion.coerceToPrimitiveDouble(s, isNamedAttribute);
             } else if (c == Double.class) {
-                return JspUtil.coerceToDouble(s, isNamedAttribute);
+                return Coercion.coerceToDouble(s, isNamedAttribute);
             } else if (c == float.class) {
-                return JspUtil.coerceToPrimitiveFloat(s, isNamedAttribute);
+                return Coercion.coerceToPrimitiveFloat(s, isNamedAttribute);
             } else if (c == Float.class) {
-                return JspUtil.coerceToFloat(s, isNamedAttribute);
+                return Coercion.coerceToFloat(s, isNamedAttribute);
             } else if (c == int.class) {
-                return JspUtil.coerceToInt(s, isNamedAttribute);
+                return Coercion.coerceToInt(s, isNamedAttribute);
             } else if (c == Integer.class) {
-                return JspUtil.coerceToInteger(s, isNamedAttribute);
+                return Coercion.coerceToInteger(s, isNamedAttribute);
             } else if (c == short.class) {
-                return JspUtil.coerceToPrimitiveShort(s, isNamedAttribute);
+                return Coercion.coerceToPrimitiveShort(s, isNamedAttribute);
             } else if (c == Short.class) {
-                return JspUtil.coerceToShort(s, isNamedAttribute);
+                return Coercion.coerceToShort(s, isNamedAttribute);
             } else if (c == long.class) {
-                return JspUtil.coerceToPrimitiveLong(s, isNamedAttribute);
+                return Coercion.coerceToPrimitiveLong(s, isNamedAttribute);
             } else if (c == Long.class) {
-                return JspUtil.coerceToLong(s, isNamedAttribute);
+                return Coercion.coerceToLong(s, isNamedAttribute);
             } else if (c == Object.class) {
                 return "new String(" + quoted + ")";
             } else {

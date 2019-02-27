@@ -59,41 +59,41 @@ class TagFileProcessor {
      */
     private static class TagFileDirectiveVisitor extends Node.Visitor {
 
-        private static final JspUtil.ValidAttribute[] tagDirectiveAttrs = {
-                new JspUtil.ValidAttribute("display-name"),
-                new JspUtil.ValidAttribute("body-content"),
-                new JspUtil.ValidAttribute("dynamic-attributes"),
-                new JspUtil.ValidAttribute("small-icon"),
-                new JspUtil.ValidAttribute("large-icon"),
-                new JspUtil.ValidAttribute("description"),
-                new JspUtil.ValidAttribute("example"),
-                new JspUtil.ValidAttribute("pageEncoding"),
-                new JspUtil.ValidAttribute("language"),
-                new JspUtil.ValidAttribute("import"),
-                new JspUtil.ValidAttribute("deferredSyntaxAllowedAsLiteral"), // JSP 2.1
-                new JspUtil.ValidAttribute("trimDirectiveWhitespaces"), // JSP 2.1
-                new JspUtil.ValidAttribute("isELIgnored") };
+        private static final ValidAttribute[] tagDirectiveAttrs = {
+                new ValidAttribute("display-name"),
+                new ValidAttribute("body-content"),
+                new ValidAttribute("dynamic-attributes"),
+                new ValidAttribute("small-icon"),
+                new ValidAttribute("large-icon"),
+                new ValidAttribute("description"),
+                new ValidAttribute("example"),
+                new ValidAttribute("pageEncoding"),
+                new ValidAttribute("language"),
+                new ValidAttribute("import"),
+                new ValidAttribute("deferredSyntaxAllowedAsLiteral"), // JSP 2.1
+                new ValidAttribute("trimDirectiveWhitespaces"), // JSP 2.1
+                new ValidAttribute("isELIgnored") };
 
-        private static final JspUtil.ValidAttribute[] attributeDirectiveAttrs = {
-                new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("required"),
-                new JspUtil.ValidAttribute("fragment"),
-                new JspUtil.ValidAttribute("rtexprvalue"),
-                new JspUtil.ValidAttribute("type"),
-                new JspUtil.ValidAttribute("deferredValue"),            // JSP 2.1
-                new JspUtil.ValidAttribute("deferredValueType"),        // JSP 2.1
-                new JspUtil.ValidAttribute("deferredMethod"),           // JSP 2
-                new JspUtil.ValidAttribute("deferredMethodSignature"),  // JSP 21
-                new JspUtil.ValidAttribute("description") };
+        private static final ValidAttribute[] attributeDirectiveAttrs = {
+                new ValidAttribute("name", true),
+                new ValidAttribute("required"),
+                new ValidAttribute("fragment"),
+                new ValidAttribute("rtexprvalue"),
+                new ValidAttribute("type"),
+                new ValidAttribute("deferredValue"),            // JSP 2.1
+                new ValidAttribute("deferredValueType"),        // JSP 2.1
+                new ValidAttribute("deferredMethod"),           // JSP 2
+                new ValidAttribute("deferredMethodSignature"),  // JSP 21
+                new ValidAttribute("description") };
 
-        private static final JspUtil.ValidAttribute[] variableDirectiveAttrs = {
-                new JspUtil.ValidAttribute("name-given"),
-                new JspUtil.ValidAttribute("name-from-attribute"),
-                new JspUtil.ValidAttribute("alias"),
-                new JspUtil.ValidAttribute("variable-class"),
-                new JspUtil.ValidAttribute("scope"),
-                new JspUtil.ValidAttribute("declare"),
-                new JspUtil.ValidAttribute("description") };
+        private static final ValidAttribute[] variableDirectiveAttrs = {
+                new ValidAttribute("name-given"),
+                new ValidAttribute("name-from-attribute"),
+                new ValidAttribute("alias"),
+                new ValidAttribute("variable-class"),
+                new ValidAttribute("scope"),
+                new ValidAttribute("declare"),
+                new ValidAttribute("description") };
 
         private ErrorDispatcher err;
 

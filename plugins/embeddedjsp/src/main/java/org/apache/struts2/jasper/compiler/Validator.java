@@ -63,22 +63,22 @@ class Validator {
 
         private ErrorDispatcher err;
 
-        private static final JspUtil.ValidAttribute[] pageDirectiveAttrs = {
-            new JspUtil.ValidAttribute("language"),
-            new JspUtil.ValidAttribute("extends"),
-            new JspUtil.ValidAttribute("import"),
-            new JspUtil.ValidAttribute("session"),
-            new JspUtil.ValidAttribute("buffer"),
-            new JspUtil.ValidAttribute("autoFlush"),
-            new JspUtil.ValidAttribute("isThreadSafe"),
-            new JspUtil.ValidAttribute("info"),
-            new JspUtil.ValidAttribute("errorPage"),
-            new JspUtil.ValidAttribute("isErrorPage"),
-            new JspUtil.ValidAttribute("contentType"),
-            new JspUtil.ValidAttribute("pageEncoding"),
-            new JspUtil.ValidAttribute("isELIgnored"),
-            new JspUtil.ValidAttribute("deferredSyntaxAllowedAsLiteral"),
-            new JspUtil.ValidAttribute("trimDirectiveWhitespaces")
+        private static final ValidAttribute[] pageDirectiveAttrs = {
+            new ValidAttribute("language"),
+            new ValidAttribute("extends"),
+            new ValidAttribute("import"),
+            new ValidAttribute("session"),
+            new ValidAttribute("buffer"),
+            new ValidAttribute("autoFlush"),
+            new ValidAttribute("isThreadSafe"),
+            new ValidAttribute("info"),
+            new ValidAttribute("errorPage"),
+            new ValidAttribute("isErrorPage"),
+            new ValidAttribute("contentType"),
+            new ValidAttribute("pageEncoding"),
+            new ValidAttribute("isELIgnored"),
+            new ValidAttribute("deferredSyntaxAllowedAsLiteral"),
+            new ValidAttribute("trimDirectiveWhitespaces")
         };
 
         private boolean pageEncodingSeen = false;
@@ -421,81 +421,81 @@ class Validator {
 
         private final StringBuffer buf = new StringBuffer(32);
 
-        private static final JspUtil.ValidAttribute[] jspRootAttrs = {
-                new JspUtil.ValidAttribute("xsi:schemaLocation"),
-                new JspUtil.ValidAttribute("version", true) };
+        private static final ValidAttribute[] jspRootAttrs = {
+                new ValidAttribute("xsi:schemaLocation"),
+                new ValidAttribute("version", true) };
 
-        private static final JspUtil.ValidAttribute[] includeDirectiveAttrs = { new JspUtil.ValidAttribute(
+        private static final ValidAttribute[] includeDirectiveAttrs = { new ValidAttribute(
                 "file", true) };
 
-        private static final JspUtil.ValidAttribute[] taglibDirectiveAttrs = {
-                new JspUtil.ValidAttribute("uri"),
-                new JspUtil.ValidAttribute("tagdir"),
-                new JspUtil.ValidAttribute("prefix", true) };
+        private static final ValidAttribute[] taglibDirectiveAttrs = {
+                new ValidAttribute("uri"),
+                new ValidAttribute("tagdir"),
+                new ValidAttribute("prefix", true) };
 
-        private static final JspUtil.ValidAttribute[] includeActionAttrs = {
-                new JspUtil.ValidAttribute("page", true, true),
-                new JspUtil.ValidAttribute("flush") };
+        private static final ValidAttribute[] includeActionAttrs = {
+                new ValidAttribute("page", true),
+                new ValidAttribute("flush") };
 
-        private static final JspUtil.ValidAttribute[] paramActionAttrs = {
-                new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("value", true, true) };
+        private static final ValidAttribute[] paramActionAttrs = {
+                new ValidAttribute("name", true),
+                new ValidAttribute("value", true) };
 
-        private static final JspUtil.ValidAttribute[] forwardActionAttrs = { new JspUtil.ValidAttribute(
-                "page", true, true) };
+        private static final ValidAttribute[] forwardActionAttrs = { new ValidAttribute(
+                "page", true) };
 
-        private static final JspUtil.ValidAttribute[] getPropertyAttrs = {
-                new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("property", true) };
+        private static final ValidAttribute[] getPropertyAttrs = {
+                new ValidAttribute("name", true),
+                new ValidAttribute("property", true) };
 
-        private static final JspUtil.ValidAttribute[] setPropertyAttrs = {
-                new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("property", true),
-                new JspUtil.ValidAttribute("value", false, true),
-                new JspUtil.ValidAttribute("param") };
+        private static final ValidAttribute[] setPropertyAttrs = {
+                new ValidAttribute("name", true),
+                new ValidAttribute("property", true),
+                new ValidAttribute("value", false),
+                new ValidAttribute("param") };
 
-        private static final JspUtil.ValidAttribute[] useBeanAttrs = {
-                new JspUtil.ValidAttribute("id", true),
-                new JspUtil.ValidAttribute("scope"),
-                new JspUtil.ValidAttribute("class"),
-                new JspUtil.ValidAttribute("type"),
-                new JspUtil.ValidAttribute("beanName", false, true) };
+        private static final ValidAttribute[] useBeanAttrs = {
+                new ValidAttribute("id", true),
+                new ValidAttribute("scope"),
+                new ValidAttribute("class"),
+                new ValidAttribute("type"),
+                new ValidAttribute("beanName", false) };
 
-        private static final JspUtil.ValidAttribute[] plugInAttrs = {
-                new JspUtil.ValidAttribute("type", true),
-                new JspUtil.ValidAttribute("code", true),
-                new JspUtil.ValidAttribute("codebase"),
-                new JspUtil.ValidAttribute("align"),
-                new JspUtil.ValidAttribute("archive"),
-                new JspUtil.ValidAttribute("height", false, true),
-                new JspUtil.ValidAttribute("hspace"),
-                new JspUtil.ValidAttribute("jreversion"),
-                new JspUtil.ValidAttribute("name"),
-                new JspUtil.ValidAttribute("vspace"),
-                new JspUtil.ValidAttribute("width", false, true),
-                new JspUtil.ValidAttribute("nspluginurl"),
-                new JspUtil.ValidAttribute("iepluginurl") };
+        private static final ValidAttribute[] plugInAttrs = {
+                new ValidAttribute("type", true),
+                new ValidAttribute("code", true),
+                new ValidAttribute("codebase"),
+                new ValidAttribute("align"),
+                new ValidAttribute("archive"),
+                new ValidAttribute("height", false),
+                new ValidAttribute("hspace"),
+                new ValidAttribute("jreversion"),
+                new ValidAttribute("name"),
+                new ValidAttribute("vspace"),
+                new ValidAttribute("width", false),
+                new ValidAttribute("nspluginurl"),
+                new ValidAttribute("iepluginurl") };
 
-        private static final JspUtil.ValidAttribute[] attributeAttrs = {
-                new JspUtil.ValidAttribute("name", true),
-                new JspUtil.ValidAttribute("trim") };
+        private static final ValidAttribute[] attributeAttrs = {
+                new ValidAttribute("name", true),
+                new ValidAttribute("trim") };
 
-        private static final JspUtil.ValidAttribute[] invokeAttrs = {
-                new JspUtil.ValidAttribute("fragment", true),
-                new JspUtil.ValidAttribute("var"),
-                new JspUtil.ValidAttribute("varReader"),
-                new JspUtil.ValidAttribute("scope") };
+        private static final ValidAttribute[] invokeAttrs = {
+                new ValidAttribute("fragment", true),
+                new ValidAttribute("var"),
+                new ValidAttribute("varReader"),
+                new ValidAttribute("scope") };
 
-        private static final JspUtil.ValidAttribute[] doBodyAttrs = {
-                new JspUtil.ValidAttribute("var"),
-                new JspUtil.ValidAttribute("varReader"),
-                new JspUtil.ValidAttribute("scope") };
+        private static final ValidAttribute[] doBodyAttrs = {
+                new ValidAttribute("var"),
+                new ValidAttribute("varReader"),
+                new ValidAttribute("scope") };
 
-        private static final JspUtil.ValidAttribute[] jspOutputAttrs = {
-                new JspUtil.ValidAttribute("omit-xml-declaration"),
-                new JspUtil.ValidAttribute("doctype-root-element"),
-                new JspUtil.ValidAttribute("doctype-public"),
-                new JspUtil.ValidAttribute("doctype-system") };
+        private static final ValidAttribute[] jspOutputAttrs = {
+                new ValidAttribute("omit-xml-declaration"),
+                new ValidAttribute("doctype-root-element"),
+                new ValidAttribute("doctype-public"),
+                new ValidAttribute("doctype-system") };
 
         /*
          * Constructor

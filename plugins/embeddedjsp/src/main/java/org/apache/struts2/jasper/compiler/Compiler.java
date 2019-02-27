@@ -413,12 +413,12 @@ public abstract class Compiler {
         if (jsw != null
                 && (ctxt.getOptions().getModificationTestInterval() > 0)) {
 
-            if (jsw.getLastModificationTest()
+            if (jsw.lastModificationTest
                     + (ctxt.getOptions().getModificationTestInterval() * 1000) > System
                     .currentTimeMillis()) {
                 return false;
             } else {
-                jsw.setLastModificationTest(System.currentTimeMillis());
+                jsw.lastModificationTest = System.currentTimeMillis();
             }
         }
 
